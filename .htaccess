@@ -1,0 +1,4 @@
+<FilesMatch "(Makefile|gpg.mk|README.md|LICENSE)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
