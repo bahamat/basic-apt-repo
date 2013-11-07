@@ -16,7 +16,7 @@ is for you.
 1. Clone this repository to someplace that can be served by a web server.
 2. Generate a GPG key and set `GPGOPTS` in `gpg.mk`.
 3. Copy `deb` files into this directory with any heirarchy you like.
-4. Run `make`.
+4. Run `make` to generate package indices.
 
 # Setting up hosts to use your repository
 
