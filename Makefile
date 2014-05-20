@@ -1,25 +1,32 @@
 DEBS=$(shell find . -type f -name "*.deb")
 
+APT_FTPARCHIVE=apt-ftparchive
+GPG=gpg
+GZIP=gzip
+GZIPFLAGS=
+
 include gpg.mk
+
+GPGFLAGS+=--batch --yes -q -abs
 
 Release.gpg: Release
 	@echo -n Signing Release...
-	@gpg $(GPGOPTS) --batch --yes -q -abs -o $@ $<
+	@$(GPG) $(GPGFLAGS) -o $@ $<
 	@echo done.
 
 Release: Packages.gz
 	@echo -n Generating Release...
-	@apt-ftparchive release . > $@
+	@$(APT_FTPARCHIVE) release . > $@
 	@echo done.
 
 Packages.gz: Packages
 	@echo -n Compressing Packages list...
-	@gzip -9c < $< > $@
+	@$(GZIP) -9c < $< > $@
 	@echo done.
 
 Packages: $(DEBS)
 	@echo -n Generating Package list...
-	@apt-ftparchive packages . > $@
+	@$(APT_FTPARCHIVE) packages . > $@
 	@echo done.
 
 mrclean: clean
